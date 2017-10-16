@@ -1,0 +1,56 @@
+-------------собственно - подкачка рейтинга
+добавить в методы параметр - имя таблицы (для разных клубов)
+------очистка базы перед импортом csv
+----- удалить знаки вопросов при импорте csv(осталось & xml !!!)
+
+
+--------------ИМПОРТИРУЕТСЯ не весь csv
+
+web:
+авторизация
+загрузка файла (пакетная?) xml
+-- переименовать и обработать
+
+пароль на базу изменить
+
+02.09.2017 сравнил кхарейт и xml и недостающих записал в базу с помощью статемента
+03.09.2017  заработал препаред статемент в компарекхаэндхмл
+06.09.2017 DelQuest - убирает знаки вопроса из csv
+07.09.2017 MergeFinal - слияние харьвского и данных из csv
+08.09.2017 ExpToXLS  - добавил выгрузку в excel
+27.09.2017 альтер сравнение и добавление новых в CSV харькрейт
+
+логика:
+
+ImportCsv:
+скачивает файл
+удаляет знаки вопроса
+сохраняет данные в таблицу csvttw
+
+MergeFinal
+сравнивает (создает экземпляр compareKhaAndXml)
+ результат - в .xls
+
+ MultiRename
+ скармливает .xml по одному CompareKhaAndXml(или альтер)
+
+ CompareKhaAndXml
+ парсит .xml  и сравнивает его с ratekha методом ReadRateKha
+
+Альтер логика
+мультиренэйм +AlterCompareKhaAndXml пополняют кхарков.CSV
+AlterImportCsv - качает CSV, удаляет вопросы
+
+
+
+----------------------
+LOAD DATA local INFILE 'D:\\down\\result15.csv'
+INTO TABLE ratekha character set cp1251 FIELDS TERMINATED BY ';'
+LINES TERMINATED BY '\n'
+(number,player,rating,town,cups,games,delta,date)
+-------------------------
+CREATE TABLE `test_csv`.`users` (
+  `idusers` INT NOT NULL AUTO_INCREMENT,
+  `user` VARCHAR(15) NULL,
+  `password` VARCHAR(15) NULL,
+  PRIMARY KEY (`idusers`));

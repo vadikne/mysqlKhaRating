@@ -1,0 +1,7 @@
+target/
+kharkovrating.iml
+.idea
+
+/.idea/
+/target/
+/WebApp/target/
